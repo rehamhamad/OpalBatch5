@@ -5,11 +5,11 @@ public class ToolboxApp {
 
     static  Scanner Sc =new Scanner(System.in); 
     public static void main(String[] args){
-        
+        int men;
             do { 
                 Menu();
                 System.out.print("Chose a number: ");
-                int men = Sc.nextInt();
+                men = Sc.nextInt();
                 switch(men) {
                     case 1:CelsiusToFahrenheit();break;
                     case 2:evenOrOdd();break;
@@ -19,10 +19,13 @@ public class ToolboxApp {
                     case 6:starTriangle();break;
                     case 7:isPrime();break;
                     case 8:reverseNumber();break;
-                    default:throw new AssertionError();
+                    case 9:numberPyramid();break;
+                    case 0: System.out.println("GoodBye!");break;
+                    default:System.out.println("Invalid input please enter from the menu");;
                 }
                 
-            } while (true);   
+            } while (men != 0); 
+        
         }
     public static void Menu(){
         System.out.println("\n1. Celsius to Fahrenheit");
@@ -150,7 +153,17 @@ public class ToolboxApp {
     System.out.println("Reversed number: " + rev);
     return rev;
 }
+    public static void numberPyramid() {
+        System.out.print("Enter number of rows: ");
+        int rows = Sc.nextInt();
 
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print(j + " ");
+            }
+            System.out.println();
+        }
+    }
 }
 
 
