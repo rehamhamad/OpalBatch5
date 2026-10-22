@@ -18,6 +18,7 @@ public class ToolboxApp {
                     case 5:multiplicationTable();break;
                     case 6:starTriangle();break;
                     case 7:isPrime();break;
+                    case 8:reverseNumber();break;
                     default:throw new AssertionError();
                 }
                 
@@ -136,8 +137,21 @@ public class ToolboxApp {
 
         return isPrime;
     }
-            
+    
+    public static int reverseNumber() {
+    System.out.print("\nEnter a Positive number: ");
+    int num = Sc.nextInt();
+    int rev = 0;
+
+    for (; num > 0; num = num / 10) {
+        rev = rev * 10 + num % 10;
     }
+
+    System.out.println("Reversed number: " + rev);
+    return rev;
+}
+
+}
 
 
 
