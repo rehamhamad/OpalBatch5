@@ -17,6 +17,7 @@ public class ToolboxApp {
                     case 4:factorial();break;
                     case 5:multiplicationTable();break;
                     case 6:starTriangle();break;
+                    case 7:isPrime();break;
                     default:throw new AssertionError();
                 }
                 
@@ -113,6 +114,30 @@ public class ToolboxApp {
         return n ;      
     }
 
+    public static boolean  isPrime(){
+        System.out.print("Enter an integer greater than 1: ");
+        int num = Sc.nextInt();
+
+        if (num <= 1) {
+            System.out.println("Please enter a number greater than 1.");
+            return false;
+        }
+
+        boolean isPrime = true;
+
+        for (int i = 2; i < num; i++) {
+            if (num % i == 0) {
+                isPrime = false;
+                break;
+            }
+        }
+
+        System.out.println("Is " + num + " prime? " + isPrime);
+
+        return isPrime;
+    }
+            
+    }
 
 
-}
+
