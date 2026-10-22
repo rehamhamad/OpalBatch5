@@ -15,6 +15,7 @@ public class ToolboxApp {
                     case 2:evenOrOdd();break;
                     case 3:maxOfThree();break;
                     case 4:factorial();break;
+                    case 5:multiplicationTable();break;
                     case 6:starTriangle();break;
                     default:throw new AssertionError();
                 }
@@ -83,6 +84,18 @@ public class ToolboxApp {
         }
         System.out.println("Factorial of "+fnum+" is "+ fact);
         return fact;
+    }
+
+    public static int multiplicationTable(){
+        System.out.print("\nEnter a number : ");
+        int mulnum = Sc.nextInt();
+        System.out.println("The multipliacton talbe of "+ mulnum +" is:");
+        for (int i=0 ; i<=12; i++){
+            int mul = mulnum * i;
+            System.out.println(mulnum +" * "+ i +" = "+ mul);
+        }
+        return mulnum;
+
     }
 
     public static int  starTriangle(){
