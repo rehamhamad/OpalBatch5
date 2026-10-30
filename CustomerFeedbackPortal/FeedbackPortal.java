@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class FeedbackPortal{
@@ -23,7 +26,7 @@ public class FeedbackPortal{
                 case 3: showAverage();break;
                 case 4: searchByRating();break;
                 case 5: deleteFeedback();break;
-                case 6:
+                case 6: saveFeedback();break;
                 case 7:
                 default:
             }            
@@ -158,5 +161,29 @@ public class FeedbackPortal{
             break;
         }   
     }
+
+    //Save Feedback
+    public static void saveFeedback(){
+        String SourceFile = "C:\\CodelineOpalBatch5\\OpalBatch5\\CustomerFeedbackPortal\\Feedback.txt";
+        try(
+            BufferedWriter write = new BufferedWriter( new FileWriter(SourceFile));
+            ){
+
+            for (int i=0 ; i < count ; i ++){
+                write.write(names[i]);
+                write.newLine();
+                //String.valueOf => used to convert the value to string because buffers epexts Strings not numbers
+                write.write(String.valueOf(ratings[i]));
+                write.newLine();
+                write.write(comments[i]);
+                write.newLine();                
+            }
+            write.close();   
+        }catch (IOException exception){
+            System.out.println("Error saveing feedback");
+        }   
+    }
+
+    
 
 }
