@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class FeedbackPortal{
@@ -18,21 +19,29 @@ public class FeedbackPortal{
 
     public static void main(String[] args) {
         boolean system = true;
+        loadFeedback();
+
         while(system == true) { 
-            loadFeedback();
             showmenu();
-            System.out.print("Choose:");
-            int Choice = input.nextInt();
-            switch (Choice){
-                case 1: AddFeedback(); break;
-                case 2: showAll();break;
-                case 3: showAverage();break;
-                case 4: searchByRating();break;
-                case 5: deleteFeedback();break;
-                case 6: saveFeedback();break;
-                case 7:
-                default:
-            }            
+            int Choice=0;
+            try{
+                System.out.print("Choose:");
+                Choice = input.nextInt();
+            }catch(InputMismatchException exception){
+                System.out.println("Please enter a number");
+                input.nextLine();
+            } 
+                switch (Choice){
+                    case 1: AddFeedback(); break;
+                    case 2: showAll();break;
+                    case 3: showAverage();break;
+                    case 4: searchByRating();break;
+                    case 5: deleteFeedback();break;
+                    case 6: saveFeedback();break;
+                    case 7: saveFeedback();system =false;break;
+                    default: System.out.println("Invalid choice");
+                }  
+                     
         }
     }
     //Show Menu
@@ -56,19 +65,30 @@ public class FeedbackPortal{
             String name = input.nextLine();
 
             // Rating
-            System.out.print("Enter your rating from 1-5: ");
             
-            int rating = input.nextInt();
+            int rating =0;
+            
+            
+                while (true){
+                    try{
+                        System.out.print("Enter your rating from 1-5: ");
+                        rating = input.nextInt();
 
-            while (true){
-                    if(rating >5 || rating <1){
-                    System.out.print("Enter A Valid Number ");
-                    rating = input.nextInt();
-                    }
-                    else{
-                        break;
-                    }
-                } 
+
+                        if(rating >5 || rating <1){
+                        System.out.print("Enter A Valid Number ");
+                
+                        }
+                        else{
+                            break;
+                        }
+                    } 
+                    catch(InputMismatchException exception){
+                        System.out.println("Enter A Number!");
+                        input.nextLine();
+                }
+
+            }
                 
             // Clear the Enter key
             input.nextLine();
@@ -107,6 +127,9 @@ public class FeedbackPortal{
     //ShowAverage 
     public static double showAverage(){
         double sum=0;
+        if (count == 0) {
+             System.out.println("No feedback yet."); return 0; 
+            }
         for (int i=0 ; i<count ; i++){
            sum += ratings[i];
         }
@@ -119,10 +142,14 @@ public class FeedbackPortal{
 
     //Search by rating
     public static void searchByRating(){
+        int rating =0;
         //Enter rating and validaion:
-        System.out.print("Enter your rating ");
-        int rating = input.nextInt();
+        
+        
         while (true){
+            try{
+                System.out.print("Enter your rating from 1-5: ");
+                rating = input.nextInt();
                     if(rating >5 || rating <1){
                     System.out.print("Enter A Valid Number ");
                     rating = input.nextInt();
@@ -130,7 +157,10 @@ public class FeedbackPortal{
                     else{
                         break;
                     }
-                } 
+        } catch (InputMismatchException e){
+            System.out.println("Please enter a number!");
+            input.nextLine();
+        }}
         System.out.println("Feedback with rating "+ rating);
         //checkes the feedbacks based on already given feedback 
         for (int i=0 ; i< count ; i++ ){
@@ -154,15 +184,18 @@ public class FeedbackPortal{
         
         for (int i=0 ; i< count ; i++){ //Search for the name 
             if (names[i].equalsIgnoreCase(name)){
-                for (int j=0 ; j<count-1 ; j++){
+                for (int j=i ; j<count-1 ; j++){
                     names[j]=names[j+1];
                     ratings[j]=ratings[j+1];
                     comments[j]=comments[j+1];
-                    System.out.println("Deleted successfully  ");
                 } 
                 count --; 
+                System.out.println("Deleted successfully  ");
+                return ;
+
+
             }    
-            break;
+            System.out.println("Name not found");
         }   
     }
 
@@ -182,7 +215,6 @@ public class FeedbackPortal{
                 write.write(comments[i]);
                 write.newLine();                
             }
-            write.close();   
         }catch (IOException exception){
             System.out.println("Error saveing feedback");
         }   
@@ -196,10 +228,18 @@ public class FeedbackPortal{
         try(BufferedReader read = new BufferedReader (new FileReader(Destination))){
            String Line;
            while((Line=read.readLine()) !=null){
-            System.out.println(Line);
+            String name = Line;
+            String rating = read.readLine();
+            String comment = read.readLine();
+
+            names[count] = name;
+            ratings[count] = Integer.parseInt(rating);
+            comments[count] = comment;
+            count++;
            }
 
         }catch(IOException exception){
+            System.out.print("Error loading feedback!");
 
         }
     }
