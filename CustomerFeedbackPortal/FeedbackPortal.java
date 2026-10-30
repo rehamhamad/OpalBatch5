@@ -179,8 +179,18 @@ public class FeedbackPortal{
     public static void deleteFeedback(){
         showAll();
         input.nextLine();
-        System.out.print("Enter the name of the rating you want to delete: ");
-        String name = input.nextLine();
+        String name ;
+        while (true){
+            System.out.print("Enter the name of the rating you want to delete: ");
+            name = input.nextLine();
+            try {
+                Integer.parseInt (name);
+                System.out.println("Invalid input! Enter a name not a number.");
+            }catch(NumberFormatException e){
+                break;
+            }
+        }
+        
         
         for (int i=0 ; i< count ; i++){ //Search for the name 
             if (names[i].equalsIgnoreCase(name)){
@@ -194,9 +204,10 @@ public class FeedbackPortal{
                 return ;
 
 
-            }    
-            System.out.println("Name not found");
-        }   
+            } 
+        }  
+        System.out.println("Name not found");
+
     }
 
     //Save Feedback
