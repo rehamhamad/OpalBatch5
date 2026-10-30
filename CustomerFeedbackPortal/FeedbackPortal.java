@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -17,6 +19,7 @@ public class FeedbackPortal{
     public static void main(String[] args) {
         boolean system = true;
         while(system == true) { 
+            loadFeedback();
             showmenu();
             System.out.print("Choose:");
             int Choice = input.nextInt();
@@ -54,6 +57,7 @@ public class FeedbackPortal{
 
             // Rating
             System.out.print("Enter your rating from 1-5: ");
+            
             int rating = input.nextInt();
 
             while (true){
@@ -184,6 +188,20 @@ public class FeedbackPortal{
         }   
     }
 
-    
+    //Load Feedbax
+    public static void loadFeedback(){
+
+        String Destination ="C:\\CodelineOpalBatch5\\OpalBatch5\\CustomerFeedbackPortal\\Feedback.txt";
+
+        try(BufferedReader read = new BufferedReader (new FileReader(Destination))){
+           String Line;
+           while((Line=read.readLine()) !=null){
+            System.out.println(Line);
+           }
+
+        }catch(IOException exception){
+
+        }
+    }
 
 }
