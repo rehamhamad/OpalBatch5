@@ -1,5 +1,5 @@
-
 import java.util.Scanner;
+
 public class FeedbackPortal{
     
 //  Create arrays
@@ -22,7 +22,7 @@ public class FeedbackPortal{
                 case 2: showAll();break;
                 case 3: showAverage();break;
                 case 4: searchByRating();break;
-                case 5:
+                case 5: deleteFeedback();break;
                 case 6:
                 case 7:
                 default:
@@ -111,7 +111,6 @@ public class FeedbackPortal{
     }
 
     //Search by rating
-
     public static void searchByRating(){
         //Enter rating and validaion:
         System.out.print("Enter your rating ");
@@ -139,10 +138,25 @@ public class FeedbackPortal{
         }
     }
 
+    //Delete Feedback
+    public static void deleteFeedback(){
+        showAll();
+        input.nextLine();
+        System.out.print("Enter the name of the rating you want to delete: ");
+        String name = input.nextLine();
+        
+        for (int i=0 ; i< count ; i++){ //Search for the name 
+            if (names[i].equalsIgnoreCase(name)){
+                for (int j=0 ; j<count-1 ; j++){
+                    names[j]=names[j+1];
+                    ratings[j]=ratings[j+1];
+                    comments[j]=comments[j+1];
+                    System.out.println("Deleted successfully  ");
+                } 
+                count --; 
+            }    
+            break;
+        }   
+    }
 
 }
-
-
-
-    
-
