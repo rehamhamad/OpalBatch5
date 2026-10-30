@@ -20,8 +20,8 @@ public class FeedbackPortal{
             switch (Choice){
                 case 1: AddFeedback(); break;
                 case 2: showAll();break;
-                case 3:
-                case 4:
+                case 3: showAverage();break;
+                case 4: searchByRating();break;
                 case 5:
                 case 6:
                 case 7:
@@ -63,14 +63,12 @@ public class FeedbackPortal{
                     }
                 } 
                 
-
             // Clear the Enter key
             input.nextLine();
 
             // Comment
             System.out.print("Enter your comment: ");
             String comment = input.nextLine();
-
 
             //Store them to the arrays 
             names[count]=name;
@@ -83,10 +81,7 @@ public class FeedbackPortal{
         } else {
             System.out.println("Feedback storage is full!");
             return 0;
-        }
-
-
-               
+        }            
     }
 
     //ShowAll
@@ -101,6 +96,49 @@ public class FeedbackPortal{
 
         
     }
+
+    //ShowAverage 
+    public static double showAverage(){
+        double sum=0;
+        for (int i=0 ; i<count ; i++){
+           sum += ratings[i];
+        }
+        double avg = sum / count;
+        System.out.println("Rating Average : "+ avg);
+
+        return avg;
+        
+    }
+
+    //Search by rating
+
+    public static void searchByRating(){
+        //Enter rating and validaion:
+        System.out.print("Enter your rating ");
+        int rating = input.nextInt();
+        while (true){
+                    if(rating >5 || rating <1){
+                    System.out.print("Enter A Valid Number ");
+                    rating = input.nextInt();
+                    }
+                    else{
+                        break;
+                    }
+                } 
+        System.out.println("Feedback with rating "+ rating);
+        //checkes the feedbacks based on already given feedback 
+        for (int i=0 ; i< count ; i++ ){
+            // Check if the entered rating matches the rating stored in the array
+            if (ratings[i]==rating){
+                System.out.println("Name: "+ names[i]);
+                System.out.println("Rating: "+ ratings[i]);
+                System.out.println("Comment: "+ comments[i]);
+                System.out.println("-------------------------");
+            }
+        
+        }
+    }
+
 
 }
 
